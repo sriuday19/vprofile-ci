@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     tools {
+        jdk "OracleJDK8"
         maven "MAVEN3"
     }
 
@@ -18,6 +19,27 @@ pipeline {
 
             steps {
                 sh 'mvn clean install'
+            } 
+
+            post {
+                success {
+                    echo 'Archieving the artifact'
+                    archiveArtifacts artifacts: "**/target/*.war"
+                }
+            }
+        }
+
+        stage('Test') {
+
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Checkstyle Analysis') {
+
+            steps {
+                sh 'mvn checkstyle:checkstyle'
             }
         }
     }
