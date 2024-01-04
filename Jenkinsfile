@@ -10,7 +10,7 @@ pipeline {
         stage('fecth code') {
 
             steps {
-                git branch:'main', url: 'https://github.com/sriuday19/vprofile-project.git'
+                git branch:'main', url: 'https://github.com/sriuday19/vprofile-ci.git'
             }
         }
 
